@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ![](./resources/official_armmbed_example_badge.png)
 # Bare metal blinky Mbed OS example
 
@@ -144,3 +145,9 @@ If you have problems, you can review the [documentation](https://os.mbed.com/doc
 The software is provided under the Apache-2.0 license. Contributions to this project are accepted under the same license. Please see [contributing.md](./CONTRIBUTING.md) for more information.
 
 This project contains code from other projects. The original license text is included in those source files. They must comply with our license guide.
+=======
+About: 
+This is a repository for the class CSE321 Real time embedded operating system. 
+It will contain all projects for the class and each will have it's own folder.
+Upon completion, it will act as a portfolio of various interactions with the Nucleo. 
+>>>>>>> ba0730554f6e521d3fbd1b188715fc1810553b98
