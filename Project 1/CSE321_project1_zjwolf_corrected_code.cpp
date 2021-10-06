@@ -57,7 +57,7 @@ printf("Output has been restored to previous state, sleeping for 500 units\n"); 
 
 void Button_is_Pressed() {
  // togle the state of the thread by setting Flag to 1
-	Flag=1;
+	Flag=1; 
 }
 
 void Button_is_Released() {
