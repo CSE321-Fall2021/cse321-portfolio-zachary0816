@@ -25,7 +25,7 @@ DigitalOut Output(LED2); // establish blue led as an output
 int Iterator=0; InterruptIn Button(BUTTON1); void Button_is_Pressed(); int Flag = 0;
 void Button_is_Released();
 
-
+/*
 int main() {
   // start the allowed execution of the thread
   printf("Program start\n");
@@ -37,7 +37,7 @@ int main() {
 
   return 0;
 }
-
+*/
 // make the handler
 void Instance() {
 while (true) {

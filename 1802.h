@@ -1,5 +1,3 @@
-
-
 /* modified from https://os.mbed.com/users/Yar/code/CSE321_LCD_for_Nucleo/
 // modified from
 // https://os.mbed.com/users/cmatz3/code/Grove_LCD_RGB_Backlight_HelloWorld/

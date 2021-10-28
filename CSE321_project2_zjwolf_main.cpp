@@ -9,24 +9,19 @@ Constraints:
 Sources and/or refrences used:
 */
 
+#include "PeripheralNames.h"
 #include "mbed_thread.h"
-#include <1802.h>
-#include <cstdio> //check if this is supposed to maybe be cstdio.c or cstdio.h
+#include "1802.h"
+#include <cstdio>
 #include <mbed.h>
 #include <stdio.h>
-//#include "1802.h" //make sure this header file is where it should be
-//#include "1802.cp"
-// instructions imply that 1802.h or 1802.cp should be included but not both,
-// figure out which
-
-// import 1802.cp?
 
 // main() runs in its own thread in the OS
 
 // hopefully by definind them as static before anything else, they should be
 // globally accessible by all functions. Might need to move them to main, though
-// that seems to not work with the button pressing functions. static int time_set
-// = 0;
+// that seems to not work with the button pressing functions. Consider revisions
+//static int time_set = 0;
 
 // Initilaize PB 5,6,8,9
 
@@ -45,11 +40,11 @@ Timer time_remaining;
 static bool started = false;
 // This function determines wether or no the timer is started
 // false is not started, true is started
+//Put any function prototypes here 
 
-// LCD boards use 5 volts
+//Note: LCD boards require 5 volts. Using 3 volt may cause issues. 
 
-// The following functions should be called when the relevant button trigger an
-// interrupt
+// The following functions should be called when the relevant button triggers an interrupt
 
 void A_pressed() {
   // Add compensation for bounce?
@@ -79,7 +74,12 @@ void D_pressed() {
   // Check if timer is currently running, if not, increment time by 5 seconds.
   // timer is based on system time
 }
-
+CSE321_LCD objName( 16, 2, LCD_5x10DOTS, PB_9, PB_8); //Either LCD_5x10DOTS or LCD_5x8DOTS
+//Possible error in instructions SLA should be SCL 
+//Check if I2C needs to be anabled 
+//PB8 and PB9 are on I2C ports
+//Pins shoudl be set automatically for interrupt? Api should handle it
+//Double check I2C_1 and not 
 int main() {
   // Initialize ports
   RCC->AHB2ENR |= 0x2;
@@ -89,7 +89,7 @@ int main() {
 
   // Set up inputs for keypad (refrence )
 
-  // time_set.reset; //time_set isn't being seen by main
+  // time_set.reset; //time_set isn't being seen by main, resolve that
 
   // int time_remaining=0;
   // initilize a variable for set time
