@@ -1,5 +1,3 @@
-Author: Zachary Wolf
-
 About
 --------------------------------------------------------------------------------------------------
 Project 3 is an attempt to create a device to aid the visually impaired using an RTOS system. 
@@ -58,3 +56,8 @@ APIs and Elements
 --------------------
 Custom funcitons
 --------------------
+
+--------------------
+Contributers
+--------------------
+Zachary Wolf
