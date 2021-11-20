@@ -8,6 +8,8 @@ Red activates if the sensor is near an object, and green activates if it is not.
 These LEDs both allow a user with poor but still functional eyesight to have a second method of detection, 
 aswell as a readily available method to check for a defective motor. 
 
+Contributor List: Zachary Wolf
+
 --------------------
 Features
 --------------------
@@ -57,7 +59,3 @@ APIs and Elements
 Custom funcitons
 --------------------
 
---------------------
-Contributers
---------------------
-Zachary Wolf
