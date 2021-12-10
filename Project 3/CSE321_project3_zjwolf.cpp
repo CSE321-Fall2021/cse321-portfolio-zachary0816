@@ -23,21 +23,23 @@ Purpose: Create an device that can act as feedback to the visually impaired by v
 need synchronization
 Don't have a superloop, have threads
  - make thread once piazza is answered, move watchdog to the thread? 
-One thread for checking the ultrasonic, one for handling outputs
+One thread for checking the infared, one for handling outputs
 Ul
-I found some schematics about the ultrasonic sensor on the internet, check the folder for refrence info. 
 
 */
 //make a thread that's the watchdog, kick it every time rise or fall is triggererd
 //this bool describes wether or not the sensor is detecting something
 
 
-//Thread thread_x;
-//Threads do not 
+//Thread program_thread;
+/*The above line was supposed to be used to create a thread, however this instance of mbed studio does not
+recognize 'Thread' as a valid thing that can be created. Hours of debugging has not rectified this.*/
 
-void threaded_function(){
+/*
+void infared_detection(){
 
-}
+} */
+//Cannot be used to do lack of threads, contents have been moved elsewhere in the code
 
 
 void detected(){
@@ -90,8 +92,8 @@ Program_watchdog.start(Watchdog_timeout);
 
 
 
-//thread.start(threaded_function());
-
+//thread.start(infared_detection());
+//cannot activate thread since threads cannot be defined
 
 while(true)
 {
@@ -107,4 +109,6 @@ printf("shutting down\n");
 return 0;
 
 }
+
+
 
