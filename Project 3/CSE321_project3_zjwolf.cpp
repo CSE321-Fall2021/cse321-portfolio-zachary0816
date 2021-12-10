@@ -4,64 +4,69 @@ author1: Zachary Wolf
 author2: none
 Modules/Subroutines used: 
 Corresponding assignment(s): Project 3
-Inputs: 
+Inputs: Infared sensor
 Outputs: Red LED, Green LED, Vibration motor
 Constraints:
 Sources and/or refrences used:
+https://os.mbed.com/docs/mbed-os/v6.15/apis/watchdog.html
+
+
 Purpose: Create an device that can act as feedback to the visually impaired by vibrating when near an object.
 */
-#include "mbed_thread.h"
+//#include "Watchdog.h"
+
 #include <stdio.h>
-#include <mbed.h>
+//#include <cstdio>
+#include "mbed.h"
 
 /* To add
-Need watchdog timer
 need synchronization
-need something bitwise
-at least 1 DMA configuration 
-at least 1 direct bitwise driver configuration 
-There's two PB4s, make red LED and vibrator both on PB4, reuse PB3 for ultrasonic? 
 Don't have a superloop, have threads
+ - make thread once piazza is answered, move watchdog to the thread? 
 One thread for checking the ultrasonic, one for handling outputs
 Ul
 I found some schematics about the ultrasonic sensor on the internet, check the folder for refrence info. 
 
 */
-
-
-
-
-//
-bool triggered_state = false;
+//make a thread that's the watchdog, kick it every time rise or fall is triggererd
 //this bool describes wether or not the sensor is detecting something
 
+
+//Thread thread_x;
+//Threads do not 
+
+void threaded_function(){
+
+}
+
+
 void detected(){
-printf("A\n");
-GPIOB->ODR|=(0x20);
-GPIOB->ODR&=~(0x10);
+GPIOB->ODR|=(0x10);
+GPIOB->ODR&=~(0x20);
 printf("detected\n");
+Watchdog::get_instance().kick();
 
 }
 //elements that should trigger when system detects something
-//enable red LED, disbale red, activate motor
+//enable red LED, disbale green, activates motor (which is on the same path as the red LED)
 
 void not_detected(){
 printf("not detected\n");
-    GPIOB->ODR&=~(0x20);
-    GPIOB->ODR|=(0x10);
+    GPIOB->ODR&=~(0x10);
+    GPIOB->ODR|=(0x20);
+    Watchdog::get_instance().kick();
+    
 }
-//elements that should trigger when system stops detecting something
+//these elements should trigger when system stops detecting something
 
-void trigger_sensor(){
-//send power to trigger pin, triggers the thing to activate
-//According to the data sheet for ultrasonic, must trigger for at least 10 microseonds to activate
-GPIOB->ODR|=(0x8);
-thread_sleep_for(20);    
-GPIOB->ODR&=~(0x8);
-}
+InterruptIn Trigger_input(PB_3);
+//this is the signal that will come in when the infared sensor is activated
+
+
 
 int main()
 {
+
     printf("program started\n");
     RCC->AHB2ENR |=0x2;
     //Enables ports B by inputting 10 (for refrence, 0x6 would enable ports B and C if necessary)
@@ -73,32 +78,25 @@ int main()
     GPIOB->MODER&=~(0x200); 
     GPIOB->MODER|=0x100;
     //Enable PB4
-    GPIOB->MODER&=~(0x80); 
-    GPIOB->MODER|=0x40;
-    //enable PB3
-    
-//set program to output mode, which is 01, these commands via MODER are individually setting those bits in port 14 and 15
-
-//every time you do a trig pulse, it returns the time
-int i = 0;
-
-//Loop should turn the LED plugged into PB5 on and off in a repeeating cycle
-while(i<4){
-    i++;
-
-
-    detected();
-    //Turn on PB5
-    //trigger_sensor();
-    thread_sleep_for(500);
-   
     not_detected();
-    //Turn off PB5
-    thread_sleep_for(500);
-    /*It was mentioned by a TA that wait_ms() should be used in place of thread_sleep_for().
-    However wait_ms() command does not appear to be recognized and thread_sleep_for() is functional so it was not used.*/
-    
+    //set LEDs to "not detected" state by default
+//set program to output mode, which is 01, these commands via MODER are individually setting those bits in port 14 and 15
+const uint32_t Watchdog_timeout = 9000;
+Watchdog &Program_watchdog = Watchdog::get_instance();
+Program_watchdog.start(Watchdog_timeout);
+//The watchdog trigger after a certain period of time if no interrupts are triggered.
+//It makes sure the system doesn't get stuck in the object detected state if 
+//the trigger to stop detecting somehow fails.
 
+
+
+//thread.start(threaded_function());
+
+
+while(true)
+{
+    Trigger_input.rise(&detected);
+    Trigger_input.fall(&not_detected);
 }
     GPIOB->ODR&=~(0x20);
     GPIOB->ODR&=~(0x10);
