@@ -7,6 +7,6 @@ Project 1 contains a template for main files and low quality code that has been 
 Project 2 contains an implementation of a countdown timer that inputs from a keypad and outputs to a LCD
 Upon completion, it will act as a portfolio of various interactions with the Nucleo. 
 
-Project 3 contains an implemention for an RTOS system that rumbles when near an object to help the visually impaired. 
+Project 3 contains an implemention for an RTOS system that provides vibrational feedback when near an object to help the visually impaired. 
 It consists of a vibration motor and an infared sensor that detects when the system is near an object.
 This can, in theory, allow a visually impaired person to detect if they are near an object. 
