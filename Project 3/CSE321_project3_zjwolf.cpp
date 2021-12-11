@@ -8,6 +8,9 @@ Inputs: Infared sensor
 Outputs: Red LED, Green LED, Vibration motor
 Constraints:
 Sources and/or refrences used:
+https://os.mbed.com/platforms/NUCLEO-L4R5ZI/
+STM32L4+ Series advanced Arm®-based 32-bit MCUs - Reference manual
+https://www.st.com/resource/en/reference_manual/dm00310109-stm32l4-series-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
 https://os.mbed.com/docs/mbed-os/v6.15/apis/watchdog.html
 
 
