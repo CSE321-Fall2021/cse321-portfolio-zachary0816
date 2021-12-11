@@ -12,7 +12,6 @@ https://os.mbed.com/platforms/NUCLEO-L4R5ZI/
 STM32L4+ Series advanced Arm®-based 32-bit MCUs - Reference manual
 https://www.st.com/resource/en/reference_manual/dm00310109-stm32l4-series-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
 https://os.mbed.com/docs/mbed-os/v6.15/apis/watchdog.html
-
 Purpose: Create an device that can act as feedback to the visually impaired by vibrating when near an object.
 */
 //#include "Watchdog.h"
@@ -28,23 +27,22 @@ recognize 'Thread' as a valid thing that can be created. Hours of debugging has 
 
 /*
 void infared_detection(){
-
 } */
 //This functioin would have handled detection, but cannot be used to do lack of threads, contents have been moved elsewhere in the code.
 
 
-void detected(){
+void not_detected(){
 GPIOB->ODR|=(0x10);
 GPIOB->ODR&=~(0x20);
-printf("detected\n");
+printf("not detected\n");
 Watchdog::get_instance().kick();
 
 }
 //elements that should trigger when system detects something
 //enable red LED, disbale green, activates motor (which is on the same path as the red LED)
 
-void not_detected(){
-printf("not detected\n");
+void detected(){
+printf("detected\n");
     GPIOB->ODR&=~(0x10);
     GPIOB->ODR|=(0x20);
     Watchdog::get_instance().kick();
@@ -88,8 +86,8 @@ Program_watchdog.start(Watchdog_timeout);
 
 while(true)
 {
-    Trigger_input.rise(&detected);
-    Trigger_input.fall(&not_detected);
+    Trigger_input.rise(&not_detected);
+    Trigger_input.fall(&detected);
 }
  
  //this final section should never execute in the current state, but if a shutdown button were to be added, this would be useful
@@ -102,6 +100,7 @@ printf("shutting down\n");
 return 0;
 
 }
+
 
 
 
