@@ -69,4 +69,5 @@ Elemetns used: Red and green LEDs. Vibration motor. Infared sensor.
 Custom funcitons
 --------------------
 void not_detected() - a helper function that deactivates all elements related to detecting a nearby object and deactives the green LED
+
 void detected() - a helper function that activates all elements related that are related detecting a nearby object and deactives the green LED
