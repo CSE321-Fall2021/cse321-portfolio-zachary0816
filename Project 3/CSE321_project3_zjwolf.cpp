@@ -13,25 +13,13 @@ STM32L4+ Series advanced Arm®-based 32-bit MCUs - Reference manual
 https://www.st.com/resource/en/reference_manual/dm00310109-stm32l4-series-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
 https://os.mbed.com/docs/mbed-os/v6.15/apis/watchdog.html
 
-
 Purpose: Create an device that can act as feedback to the visually impaired by vibrating when near an object.
 */
 //#include "Watchdog.h"
 
 #include <stdio.h>
-//#include <cstdio>
 #include "mbed.h"
 
-/* To add
-need synchronization
-Don't have a superloop, have threads
- - make thread once piazza is answered, move watchdog to the thread? 
-One thread for checking the infared, one for handling outputs
-Ul
-
-*/
-//make a thread that's the watchdog, kick it every time rise or fall is triggererd
-//this bool describes wether or not the sensor is detecting something
 
 
 //Thread program_thread;
@@ -42,7 +30,7 @@ recognize 'Thread' as a valid thing that can be created. Hours of debugging has 
 void infared_detection(){
 
 } */
-//Cannot be used to do lack of threads, contents have been moved elsewhere in the code
+//This functioin would have handled detection, but cannot be used to do lack of threads, contents have been moved elsewhere in the code.
 
 
 void detected(){
@@ -65,7 +53,7 @@ printf("not detected\n");
 //these elements should trigger when system stops detecting something
 
 InterruptIn Trigger_input(PB_3);
-//this is the signal that will come in when the infared sensor is activated
+//This is the signal that will come in when the infared sensor is activated
 
 
 
@@ -74,7 +62,7 @@ int main()
 
     printf("program started\n");
     RCC->AHB2ENR |=0x2;
-    //Enables ports B by inputting 10 (for refrence, 0x6 would enable ports B and C if necessary)
+    //Enables ports B by inputting what in binary would be 10
     
     GPIOB->MODER&=~(0x800);
     GPIOB->MODER|=0x400;
@@ -103,9 +91,11 @@ while(true)
     Trigger_input.rise(&detected);
     Trigger_input.fall(&not_detected);
 }
+ 
+ //this final section should never execute in the current state, but if a shutdown button were to be added, this would be useful
     GPIOB->ODR&=~(0x20);
     GPIOB->ODR&=~(0x10);
-        GPIOB->ODR&=~(0x8);
+     GPIOB->ODR&=~(0x8);
     //make sure both LEDs and motor is shut off
 printf("shutting down\n");
 
