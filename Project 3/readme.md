@@ -55,14 +55,18 @@ is possible a cable has become loose.
 Function declarations used
 -------------------- 
 void not_detected()
+
 void detected()
+
 Watchdog &Program_watchdog = Watchdog::get_instance();
+
 InterruptIn Trigger_input(PB_3);
 
 --------------------
 APIs and Elements
 --------------------
 No APIs were used, all perihperals were controlled via bitwise control or interrupts
+
 Elemetns used: Red and green LEDs. Vibration motor. Infared sensor. 
 
 --------------------
